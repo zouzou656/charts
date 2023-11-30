@@ -14,6 +14,7 @@ export class ChartComponent implements  OnDestroy {
   dataPoints2: any[] = [];
   dataPoints3: any[] = [];
   dataPoints4: any[] = [];
+  messages: string[] = [];
   private socket!: Socket;
   chart: any;
 
@@ -67,13 +68,16 @@ export class ChartComponent implements  OnDestroy {
     }
   }
 
-
   setupSocket(): void {
+    console.log(this.messages);
+
     this.socket = io('http://localhost:3000');
-    this.socket.on('Increase', (Increase) => {
-      console.log(Increase);
-      this._snackBar.open(Increase.value);
+    this.socket.on('Increase', (increase) => {
+      console.log(increase);
+      console.log(this.messages);
+      this.messages.unshift(increase.value);
     });
+
     this.socket.on('newRow', (msg) => {
       console.log(msg);
 
@@ -83,8 +87,8 @@ export class ChartComponent implements  OnDestroy {
       });
 
       this.dataPoints2.push({
-          x: new Date(msg.date),
-          y: parseFloat(msg.close),
+        x: new Date(msg.date),
+        y: parseFloat(msg.close),
       });
       this.dataPoints3.push({
         x: new Date(msg.date),
@@ -92,8 +96,8 @@ export class ChartComponent implements  OnDestroy {
       });
 
       this.dataPoints4.push({
-          x: new Date(msg.date),
-          y: parseFloat(msg.low),
+        x: new Date(msg.date),
+        y: parseFloat(msg.low),
       });
       this.chart.render();
     });
