@@ -1,41 +1,138 @@
-1. Deliverables
-	Number of changes Delivered
-		From the Deployment Folder on UAT and on PROD
-	New Services Delivered
-		From the Deployment Folder on UAT and on PROD
-	Major Bug Fixes
-		HotFixes and Troubleshooting sessions
-
-2. Metrics and Performance
-	Efficiency Metrics
-		Lima
-		Transfers
-		Alerts
-		
-	Team Support Metrics
-		Support For OMDB, BAPC and BAPE and DEVE support
-	Logging Metrics
-		Implemented enhanced way of Logging across all new services
-	Dashboards
-		Built Dashboards to visualize the logging and for easy queries for the BAs
-
-3. Mentoring and Team Collaboration
-	Team Training
-		Trained a team member on OSB 
-	
-4. Reliability and Stability Improvements
-	Proactive Maintenance
-		maintaining old source codes and improving it
-	Code Cleanup
-		established a code cleanup of unused services while pertaining backups
-5. Collaboration and Stakeholder Management
-	Cross-Team Projects
-		P2A, openFreshAccount…
-6. solved technical issues with projects that were on hold
-	Alerts
-
-7. Process Documentation
-	Deployment Documentation
-		established a process for documenting and making inventory of the deployments that are all connected to jira
-	Inventory of APIs
-		Built a dashboard and started documenting the apis used by OSB and the exposed APIs
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns7="http://www.sgbl.com.lb/schemas/cvs.GetMaxDailyLimitDetail" xmlns:ns3="http://www.sgbl.com.lb/schemas/cvs.CreateATransferDetail" xmlns:ns9="http://www.sgbl.com.lb/schemas/cvs.CreateSTODetail" xmlns:ns11="http://www.sgbl.com.lb/schemas/cvs.RetrievePendingTransfersDetail" xmlns:ns12="http://www.sgbl.com.lb/schemas/cvs.DeleteOrApproveTransferDetail" xmlns:ns13="http://www.sgbl.com.lb/schemas/cvs.GetEligibleAccountsDetail" xmlns="http://wadl.dev.java.net/2009/02" xmlns:btdet="http://www.sgbl.com.lb/schemas/cvs.InsertBulkTransfersRequest" xmlns:swd="http://www.sgbl.com.lb/schemas/cvs.SubscribeSWIFTRequest" xmlns:btud="http://www.sgbl.com.lb/schemas/cvs.BulkTransUploadRequest" xmlns:btcd="http://www.sgbl.com.lb/schemas/cvs.BulkTransUploadCheckRequest" xmlns:gswd="http://www.sgbl.com.lb/schemas/cvs.GetSWIFTRequest" xmlns:valT="http://www.sgbl.com.lb/schemas/cvs.ValidateTransferDetail" xmlns:valS="http://www.sgbl.com.lb/schemas/cvs.ValidateSTODetail">
+   <doc title="cvs.Transfers.Rest">RestService</doc>
+   <grammars>
+      <xsd:schema targetNamespace="urn:cvs.Transfers/types" elementFormDefault="qualified">
+            <xsd:import namespace="http://www.sgbl.com.lb/schemas/cvs.transferOperations" schemaLocation="cvs.transferOpreations.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/CreateATransfer">
+         <method name="POST" soa:wsdlOperation="CreateATransfer">
+            <request>
+               <representation mediaType="application/json" element="cns:createATransferDetail" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:createATransferReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/CreateSTO">
+         <method name="POST" soa:wsdlOperation="CreateSTO">
+            <request>
+               <representation mediaType="application/json" element="cns:createSTODetail" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:createSTOReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/DOAPT">
+         <method name="POST" soa:wsdlOperation="DeleteOrApprovePendingTransf">
+            <request>
+               <representation mediaType="application/json" element="cns:deleteOrApproveTransferDetail" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:deleteOrApproveTransferReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/GetEligibleAccounts">
+         <method name="GET" soa:wsdlOperation="GetEligibleAccounts">
+            <request soa:paramElement="pns:getEligibleAccountsDetail" xmlns:pns="http://www.sgbl.com.lb/schemas/cvs.transferOperations">
+               <param name="customerId" style="query" soa:expression="$msg.GetEligibleAccountsDetailPart/ns13:customerId" type="xsd:int" default=""/>
+               <param name="externalId" style="query" soa:expression="$msg.GetEligibleAccountsDetailPart/ns13:externalId" type="xsd:string" default=""/>
+               <param name="transferInOut" style="query" soa:expression="$msg.GetEligibleAccountsDetailPart/ns13:transferInOut" type="xsd:string" default=""/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:getEligibleAccountsReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/GetMaxDailyLimit">
+         <method name="GET" soa:wsdlOperation="GetMaxDailyLimit">
+            <request soa:paramElement="pns:getMaxDailyLimitDetail" xmlns:pns="http://www.sgbl.com.lb/schemas/cvs.transferOperations">
+               <param name="customerId" style="query" soa:expression="$msg.GetMaxDailyLimitDetailPart/ns7:customerId" type="xsd:int" default=""/>
+               <param name="externalId" style="query" soa:expression="$msg.GetMaxDailyLimitDetailPart/ns7:externalId" type="xsd:string" default=""/>
+               <param name="accountId" style="query" soa:expression="$msg.GetMaxDailyLimitDetailPart/ns7:accountId" type="xsd:string" default=""/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:getMaxDailyLimitReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/RetrievePendingTransfers">
+         <method name="GET" soa:wsdlOperation="RetrievePendingTransfers">
+            <request soa:paramElement="pns:retrievePendingTransfersDetail" xmlns:pns="http://www.sgbl.com.lb/schemas/cvs.transferOperations">
+               <param name="customerId" style="query" soa:expression="$msg.RetrievePendingTransfersDetailPart/ns11:customerId" type="xsd:int" default=""/>
+               <param name="externalId" style="query" soa:expression="$msg.RetrievePendingTransfersDetailPart/ns11:externalId" type="xsd:string" default=""/>
+               <param name="type" style="query" soa:expression="$msg.RetrievePendingTransfersDetailPart/ns11:type" type="xsd:string" default=""/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:retrievePendingTransfersReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/InsertBulkTransfer">
+         <method name="POST" soa:wsdlOperation="InsertBulkTransfer">
+            <request>
+               <representation mediaType="application/json" element="cns:insertBulkTransfersRequest" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:insertBulkTransfersResponse" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/SWIFTNotification">
+         <method name="POST" soa:wsdlOperation="SWIFTNotification">
+            <request>
+               <representation mediaType="application/json" element="cns:subscribeSWIFTRequest" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:subscribeSWIFTResponse" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+         <method name="GET" soa:wsdlOperation="GetSWIFTNotification">
+            <request soa:paramElement="pns:getSWIFTRequest" xmlns:pns="http://www.sgbl.com.lb/schemas/cvs.transferOperations">
+               <param name="customerId" style="query" soa:expression="$msg.request/gswd:customerId" type="xsd:integer"/>
+               <param name="externalId" style="query" soa:expression="$msg.request/gswd:externalId" type="xsd:string"/>
+               <param name="accountNumber" style="query" soa:expression="$msg.request/gswd:accountNumber" type="xsd:string"/>
+               <param name="corporateCustomerId" style="query" soa:expression="$msg.request/gswd:corporateCustomerId" type="xsd:integer"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:getSWIFTResponse" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/BulkTransferUpload">
+         <method name="POST" soa:wsdlOperation="BulkTransferUpload">
+            <request>
+               <representation mediaType="application/json" element="cns:bulkTransferFileUploadRequest" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:bulkTransferFileUploadResponse" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/ValidateTransfer">
+         <method name="POST" soa:wsdlOperation="ValidateTransfer">
+            <request>
+               <representation mediaType="application/json" element="cns:validateTransferDetail" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:validateTransferReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/ValidateSTO">
+         <method name="POST" soa:wsdlOperation="ValidateSTO">
+            <request>
+               <representation mediaType="application/json" element="cns:validateSTODetail" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:validateSTOReturn" xmlns:cns="http://www.sgbl.com.lb/schemas/cvs.transferOperations"/>
+            </response>
+         </method>
+      </resource>	  
+	  
+   </resources>
+</application>
