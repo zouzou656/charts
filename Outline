@@ -1,0 +1,41 @@
+1. Deliverables
+	Number of changes Delivered
+		From the Deployment Folder on UAT and on PROD
+	New Services Delivered
+		From the Deployment Folder on UAT and on PROD
+	Major Bug Fixes
+		HotFixes and Troubleshooting sessions
+
+2. Metrics and Performance
+	Efficiency Metrics
+		Lima
+		Transfers
+		Alerts
+		
+	Team Support Metrics
+		Support For OMDB, BAPC and BAPE and DEVE support
+	Logging Metrics
+		Implemented enhanced way of Logging across all new services
+	Dashboards
+		Built Dashboards to visualize the logging and for easy queries for the BAs
+
+3. Mentoring and Team Collaboration
+	Team Training
+		Trained a team member on OSB 
+	
+4. Reliability and Stability Improvements
+	Proactive Maintenance
+		maintaining old source codes and improving it
+	Code Cleanup
+		established a code cleanup of unused services while pertaining backups
+5. Collaboration and Stakeholder Management
+	Cross-Team Projects
+		P2A, openFreshAccount…
+6. solved technical issues with projects that were on hold
+	Alerts
+
+7. Process Documentation
+	Deployment Documentation
+		established a process for documenting and making inventory of the deployments that are all connected to jira
+	Inventory of APIs
+		Built a dashboard and started documenting the apis used by OSB and the exposed APIs
